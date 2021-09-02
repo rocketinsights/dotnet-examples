@@ -77,7 +77,9 @@ jobs:
       - install-aws-cli
       - run:
           name: "Login to AWS CodeArtifact"
-          command: aws codeartifact login --tool dotnet --repository dotnet-internal-nuget --domain rocketinsights-dotnet --domain-owner 600012347670
+          command: |
+            dotnet help
+            aws codeartifact login --tool dotnet --repository dotnet-internal-nuget --domain rocketinsights-dotnet --domain-owner 600012347670
       - setup
       - run:
           name: "Run Application Tests"
