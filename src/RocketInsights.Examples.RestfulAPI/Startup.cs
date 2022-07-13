@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RocketInsights.DXP.Services;
 using RocketInsights.Examples.RestfulAPI.Constants;
 using RocketInsights.Examples.RestfulAPI.Extensions;
+using RocketInsights.Examples.RestfulAPI.Services;
 
 namespace RocketInsights.Examples.RestfulAPI
 {
@@ -31,10 +33,14 @@ namespace RocketInsights.Examples.RestfulAPI
                 options.AddPolicy(Policies.Administrator, policy => policy.RequireRole(Roles.Administrator));
             });
 
-            services.AddMvcCore();
-
             services.AddHttpContextAccessor();
             services.AddContextual();
+
+            // These are temporary and will eventually be injected from provider packages
+            services.AddSingleton<ILayoutService, LayoutService>();
+            services.AddSingleton<IContentService, ContentService>();
+
+            services.AddMvcCore().AddControllersAsServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
