@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RocketInsights.Common.Patterns.Pipelines;
+using RocketInsights.DXP.Models;
 using RocketInsights.DXP.Services;
 using RocketInsights.Examples.RestfulAPI.Constants;
+using RocketInsights.Examples.RestfulAPI.Enrichers;
 using RocketInsights.Examples.RestfulAPI.Extensions;
 using RocketInsights.Examples.RestfulAPI.Services;
 
@@ -39,6 +42,13 @@ namespace RocketInsights.Examples.RestfulAPI
             // These are temporary and will eventually be injected from provider packages
             services.AddSingleton<ILayoutService, LayoutService>();
             services.AddSingleton<IContentService, ContentService>();
+            
+            services.AddDXP();
+
+            // Customizations
+            services.AddSingleton<IChainableOperation<Composition>, CompositionEnricher>();
+            services.AddSingleton<IChainableOperation<Region>, RegionEnricher>();
+            services.AddSingleton<IChainableOperation<Fragment>, FragmentEnricher>();
 
             services.AddMvcCore().AddControllersAsServices();
         }
