@@ -6,8 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
-    <PackageReference Include="RocketInsights.Contextual.AspNetCore" Version="5.0.80" />
-    <PackageReference Include="RocketInsights.DXP.AspNetCore" Version="5.0.80" />
+    <PackageReference Include="RocketInsights.Contextual.AspNetCore" Version="5.0.81" />
+    <PackageReference Include="RocketInsights.DXP.AspNetCore" Version="5.0.81" />
+    <PackageReference Include="RocketInsights.DXP.Providers.Kontent" Version="0.1.81" />
   </ItemGroup>
 
 </Project>

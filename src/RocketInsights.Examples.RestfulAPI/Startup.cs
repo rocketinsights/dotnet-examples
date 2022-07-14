@@ -38,19 +38,21 @@ namespace RocketInsights.Examples.RestfulAPI
 
             services.AddHttpContextAccessor();
             services.AddContextual();
-
-            // These are temporary and will eventually be injected from provider packages
-            services.AddSingleton<ILayoutService, LayoutService>();
-            services.AddSingleton<IContentService, ContentService>();
             
             services.AddDXP();
+            //services.AddSingleton<ILayoutService, LayoutService>();
+            //services.AddSingleton<IContentService, ContentService>();
+            services.AddKontent();
 
             // Customizations
-            services.AddSingleton<IChainableOperation<Composition>, CompositionEnricher>();
-            services.AddSingleton<IChainableOperation<Region>, RegionEnricher>();
-            services.AddSingleton<IChainableOperation<Fragment>, FragmentEnricher>();
+            services
+                .AddSingleton<IChainableOperation<Composition>, CompositionEnricher>()
+                .AddSingleton<IChainableOperation<Region>, RegionEnricher>()
+                .AddSingleton<IChainableOperation<Fragment>, FragmentEnricher>();
 
-            services.AddMvcCore().AddControllersAsServices();
+            services
+                .AddMvcCore()
+                .AddControllersAsServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
