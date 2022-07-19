@@ -26,6 +26,7 @@ namespace RocketInsights.Examples.RestfulAPI.Services
                 {
                     var composition = new Composition()
                     {
+                        Name = "Example Composition",
                         Content = new Content()
                         {
                             { "slug", uri.AbsolutePath }

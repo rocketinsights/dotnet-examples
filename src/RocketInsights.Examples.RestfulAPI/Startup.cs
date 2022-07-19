@@ -27,7 +27,13 @@ namespace RocketInsights.Examples.RestfulAPI
         {
             services.AddProfiler();
 
-            services.AddCors();
+            services.AddCors(options => options
+                .AddDefaultPolicy(policy => policy
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                )
+            );
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => Configuration.Bind("JwtSettings", options));
 
@@ -40,9 +46,10 @@ namespace RocketInsights.Examples.RestfulAPI
             services.AddContextual();
             
             services.AddDXP();
-            //services.AddSingleton<ILayoutService, LayoutService>();
-            //services.AddSingleton<IContentService, ContentService>();
-            services.AddKontent();
+
+            services.AddSingleton<ILayoutService, LayoutService>();
+            services.AddSingleton<IContentService, ContentService>();
+            //services.AddKontent();
 
             // Customizations
             services
