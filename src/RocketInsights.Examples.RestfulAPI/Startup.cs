@@ -47,9 +47,10 @@ namespace RocketInsights.Examples.RestfulAPI
             
             services.AddDXP();
 
-            services.AddSingleton<ILayoutService, LayoutService>();
-            services.AddSingleton<IContentService, ContentService>();
-            //services.AddKontent();
+            services.AddKontent();
+
+            services.AddSingleton<ILayoutService, LayoutService>(); // Override
+            //services.AddSingleton<IContentService, ContentService>();
 
             // Customizations
             services
