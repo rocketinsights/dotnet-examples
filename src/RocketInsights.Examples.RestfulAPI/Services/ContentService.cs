@@ -25,5 +25,10 @@ namespace RocketInsights.Examples.RestfulAPI.Services
 
             return Task.FromResult(fragment);
         }
+
+        public Task<Fragment> GetFragmentAsync(string id, string codename)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

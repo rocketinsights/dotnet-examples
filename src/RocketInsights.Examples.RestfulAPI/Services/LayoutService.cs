@@ -1,4 +1,6 @@
-﻿using RocketInsights.Contextual.Services;
+﻿using RocketInsights.Common.Extensions;
+using RocketInsights.Common.Models;
+using RocketInsights.Contextual.Services;
 using RocketInsights.DXP.Models;
 using RocketInsights.DXP.Services;
 using System;
@@ -18,52 +20,59 @@ namespace RocketInsights.Examples.RestfulAPI.Services
 
         public Task<Composition> GetCompositionAsync()
         {
-            var composition = new Composition()
+            if (ContextService.TryGetContext(out var context))
             {
-                Regions = new List<Region>()
+                if (context.Content.TryParse<Uri>("uri", out var uri))
                 {
-                    new Region()
+                    var composition = new Composition()
                     {
-                        Name = "Test Region",
-                        Template = new Template()
+                        Content = new Content()
                         {
-                            Name = "layout"
+                            { "slug", uri.AbsolutePath }
                         },
-                        Fragments = new List<Fragment>()
+                        Regions = new List<Region>()
                         {
-                            new Fragment()
+                            new Region()
                             {
-                                Name = "Test Fragment",
+                                Name = "Test Region",
                                 Template = new Template()
                                 {
-                                    Name = "body-content"
+                                    Name = "layout"
                                 },
-                                Content = new Content()
+                                Fragments = new List<Fragment>()
                                 {
-                                    { "title", "Lorum Ipsum" },
-                                    { "publishedDate", DateTime.Now },
-                                    { "body", @"# Illa rata natura
+                                    new Fragment()
+                                    {
+                                        Name = "Test Fragment",
+                                        Template = new Template()
+                                        {
+                                            Name = "body-content"
+                                        },
+                                        Content = new Content()
+                                        {
+                                            { "title", "Lorum Ipsum" },
+                                            { "publishedDate", DateTime.Now },
+                                            { "body", @"# Illa rata natura
 
-## Diva cum aliquod ergo
+        ## Diva cum aliquod ergo
 
-Lorem *markdownum curvi* ipsos haerentem optas medeatur sua tenentibus contigit
-lacrimis torpet siccis. Iuratus quaeris, ego fuerunt multiplicique restitit, non
-*lenta tremit*! Avem dolore! Solet est ponto sedit mox sui nomine Belo ecce
-pulsumque, caput rigebant celanda amaris Leucothoen omnia,
-[dederint](http://tympanaque.io/quibus-maneas.html)." }
+        Lorem *markdownum curvi* ipsos haerentem optas medeatur sua tenentibus contigit
+        lacrimis torpet siccis. Iuratus quaeris, ego fuerunt multiplicique restitit, non
+        *lenta tremit*! Avem dolore! Solet est ponto sedit mox sui nomine Belo ecce
+        pulsumque, caput rigebant celanda amaris Leucothoen omnia,
+        [dederint](http://tympanaque.io/quibus-maneas.html)." }
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-            };
+                    };
 
-            if (ContextService.TryGetContext(out var context))
-            {
-                composition.Name = context.Culture.DisplayName;
+                    return Task.FromResult(composition);
+                }
             }
 
-            return Task.FromResult(composition);
+            throw new Exception("Not Found");
         }
     }
 }
