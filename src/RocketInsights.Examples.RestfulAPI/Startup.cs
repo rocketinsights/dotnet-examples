@@ -49,7 +49,7 @@ namespace RocketInsights.Examples.RestfulAPI
 
             services.AddKontent();
 
-            services.AddSingleton<ILayoutService, LayoutService>(); // Override
+            services.AddSingleton<ILayoutService, LayoutService>();
             //services.AddSingleton<IContentService, ContentService>();
 
             // Customizations

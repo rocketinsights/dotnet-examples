@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,9 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
-    <PackageReference Include="RocketInsights.Contextual.AspNetCore" Version="5.0.94" />
-    <PackageReference Include="RocketInsights.DXP.AspNetCore" Version="5.0.94" />
-    <PackageReference Include="RocketInsights.DXP.Providers.Kontent" Version="0.1.94" />
+    <PackageReference Include="RocketInsights.Contextual.AspNetCore" Version="5.0.102" />
+    <PackageReference Include="RocketInsights.DXP.AspNetCore" Version="5.0.102" />
+    <PackageReference Include="RocketInsights.DXP.Providers.Kontent" Version="0.1.102" />
   </ItemGroup>
 
 </Project>
